@@ -90,7 +90,7 @@ if (document.getElementById('sort')) {
     selector: '#sort',
     searchbox: false,
     offset: false,
-    placeholder: 'Latest',
+    placeholder: 'Recommended',
   });
 }
 
@@ -306,16 +306,16 @@ if (filterToggle) {
     productGallery.classList.toggle('col-lg-12');
     console.log(column);
     column.forEach((item) => {
-      if(item.classList.contains('col-xl-6')){
+      if (item.classList.contains('col-xl-6')) {
         item.classList.remove("col-xl-6");
-		    item.classList.add("col-xl-4");
+        item.classList.add("col-xl-4");
       }
       else if (item.classList.contains("col-xl-4")) {
-			item.classList.remove("col-xl-4");
-			item.classList.add("col-xl-6");
-		}
-      
-    }) 
+        item.classList.remove("col-xl-4");
+        item.classList.add("col-xl-6");
+      }
+
+    })
 
     // it's will be on 4 column
     productContent.forEach((item) => {
@@ -406,17 +406,17 @@ if (orderHisotryFilter) {
 }
 
 var overlay = document.querySelector(".overlay");
-if(overlay){
+if (overlay) {
   var overlayAfter = window.getComputedStyle(overlay, "::after");
   console.log(overlayAfter);
 }
 
-  // overlayAfter.addEventListener('click', () => {
-  //   let sidebarNav = document.querySelector(".dashboard__nav");
-	//   let body = document.querySelector("body");
-	//   sidebarNav.classList.toggle("active");
-	//   body.classList.toggle("overlay");
-  // })
+// overlayAfter.addEventListener('click', () => {
+//   let sidebarNav = document.querySelector(".dashboard__nav");
+//   let body = document.querySelector("body");
+//   sidebarNav.classList.toggle("active");
+//   body.classList.toggle("overlay");
+// })
 
 // 14.2    Blog Sidebar Filter
 const blogListFilter = document.querySelector('button.filter');
@@ -781,36 +781,36 @@ var productsContentFour = new Swiper('.our-products__content-slider-four', {
 
 // 16.4    Gallery Slider
 var productViewThumbs = new Swiper(".gallery-items-slider", {
-	centeredSlides: true,
-	slidesPerView: 4,
-	loop: true,
-	autoHeight: false,
-	direction: "vertical",
-	spaceBetween: 24,
-	navigation: {
-		nextEl: ".gallery-next-item",
-		prevEl: ".gallery-prev-item",
-	},
-	breakpoints: {
-		0: {
-			slidesPerView: 2,
-			centeredSlides: false,
-			direction: "horizontal",
-			spaceBetween: 10,
-		},
-		570: {
-			slidesPerView: 4,
-			centeredSlides: false,
-			direction: "horizontal",
-			spaceBetween: 24,
-		},
-		992: {
-			slidesPerView: 4,
-			centeredSlides: false,
-			direction: "vertical",
-			spaceBetween: 24,
-		},
-	},
+  centeredSlides: true,
+  slidesPerView: 4,
+  loop: true,
+  autoHeight: false,
+  direction: "vertical",
+  spaceBetween: 24,
+  navigation: {
+    nextEl: ".gallery-next-item",
+    prevEl: ".gallery-prev-item",
+  },
+  breakpoints: {
+    0: {
+      slidesPerView: 2,
+      centeredSlides: false,
+      direction: "horizontal",
+      spaceBetween: 10,
+    },
+    570: {
+      slidesPerView: 4,
+      centeredSlides: false,
+      direction: "horizontal",
+      spaceBetween: 24,
+    },
+    992: {
+      slidesPerView: 4,
+      centeredSlides: false,
+      direction: "vertical",
+      spaceBetween: 24,
+    },
+  },
 });
 
 var galleryThumbs = new Swiper('.gallery-thumbs', {
@@ -1023,30 +1023,30 @@ var featured = new Swiper('.our-feature--slider', {
 
 // 16.7    News Slider
 var news = new Swiper(".news-slider--one", {
-	spaceBetween: 24,
-	loop: true,
-	loopFillGroupWithBlank: true,
-	// autoplay: {
-	// 	delay: 4000,
-	// 	disableOnInteraction: false,
-	// },
-	pagination: {
-		el: ".swiper-pagination",
-		clickable: true,
-		dynamicBullets: true,
-	},
-	breakpoints: {
-		0: {
-			slidesPerView: 1,
-			spaceBetween: 12,
-		},
-		768: {
-			slidesPerView: 2,
-		},
-		1200: {
-			slidesPerView: 3,
-		},
-	},
+  spaceBetween: 24,
+  loop: true,
+  loopFillGroupWithBlank: true,
+  // autoplay: {
+  // 	delay: 4000,
+  // 	disableOnInteraction: false,
+  // },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+    dynamicBullets: true,
+  },
+  breakpoints: {
+    0: {
+      slidesPerView: 1,
+      spaceBetween: 12,
+    },
+    768: {
+      slidesPerView: 2,
+    },
+    1200: {
+      slidesPerView: 3,
+    },
+  },
 });
 
 // 16.8    Testimonial Slider
@@ -1241,19 +1241,30 @@ var blogs = new Swiper('.blog-list--slider', {
 
 // upload image
 function readURL(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function (e) {
-			$("#imagePreview").css(
-				"background-image",
-				"url(" + e.target.result + ")"
-			);
-			$("#imagePreview").hide();
-			$("#imagePreview").fadeIn(650);
-		};
-		reader.readAsDataURL(input.files[0]);
-	}
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $("#imagePreview").css(
+        "background-image",
+        "url(" + e.target.result + ")"
+      );
+      $("#imagePreview").hide();
+      $("#imagePreview").fadeIn(650);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
 }
 $("#imageUpload").change(function () {
-	readURL(this);
+  readURL(this);
 });
+
+
+$(".cards-md__info-right .action-btn").on("click", function () {
+  Toastify({
+    text: "Added to cart successfully",
+    className: "info",
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    }
+  }).showToast();
+})

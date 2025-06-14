@@ -3958,9 +3958,9 @@ body.overlay::after {
   }
 }
 .hero__img-wrapper-two-bg {
-  position: absolute;
-  width: 80%;
-  height: 685px;
+  position: relative;
+  margin: auto;
+  width: 160rem;
   z-index: -1;
 }
 @media (max-width: 1680px) {
@@ -4022,6 +4022,7 @@ body.overlay::after {
 .hero--two {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   overflow: hidden;
 }
 .hero--two .hero__text-content {

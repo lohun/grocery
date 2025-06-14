@@ -2,49 +2,37 @@
 
 namespace App\Livewire\Client;
 
-use App\Models\Product;
-use Livewire\Component;
-use Surfsidemedia\Shoppingcart\Facades\Cart;
+use DB;
+use Livewire\Attributes\Validate;
+use LivewireUI\Modal\ModalComponent;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
-class Modal extends Component
+class Modal extends ModalComponent
 {
+
+    #[Validate('required|numeric|min:0')]
     public $num;
 
+    public $id;
 
-    protected $product;
+    public $product;
 
-    protected $listeners = ['showProduct', 'showProduct'];
-
-    public function mount($num = 1)
+    public function mount()
     {
-        $this->num = $num;
+        $sql = "SELECT p.*, u.name as unit FROM products p JOIN units u ON p.unit_id = u.id WHERE p.id = ?";
+        $product = DB::select($sql, [$this->id]);
+        if(empty($product)) {
+            $this->product = [];
+        } else {
+            $this->product = $product[0];
+        }
+        $this->num = 1;
     }
 
     public function render()
     {
-        if (!$this->product) {
-            $result = [
-                "name" => "",
-                "price" => "",
-                "product_image" => "",
-                "quantity_alert" => 0,
-                "quantity" => 0,
-                "notes" => ""
-            ];
-        }else {
-            $result = $this->product->first();
-        }
-
-        return view('livewire.client.modal', [
-            "product" => $result
-        ]);
+        return view('livewire.client.modal');
     }
-
-    public function showProduct($id)
-    {
-        $this->product = Product::where("id", "=", $id);
-    }
-
 
     public function increment()
     {
@@ -60,15 +48,24 @@ class Modal extends Component
 
     public function save()
     {
-        Cart::add([
-            'id' => $this->product->first()->id,
-            'name' => $this->product->first()->name,
-            'qty' => $this->num,
-            'price' => $this->product->first()->price,
-            'options' => [
-                'image' => $this->product->first()->product_image
+        $id = intval($this->id);
+
+        $sql = "SELECT p.*, u.name as unit FROM products p JOIN units u ON p.unit_id = u.id WHERE p.id = ?";
+        $product = DB::select($sql, [$id]);
+        Cart::instance("client")->add([
+            "id" => $product[0]->id,
+            "name" => $product[0]->name,
+            "qty" => 1,
+            "price" => $product[0]->selling_price/100,
+            "weight" => 1,
+            "options" => [
+                "img" => $product[0]->product_image,
+                "unit" => $product[0]->unit
             ]
         ]);
+
+
+        $this->dispatch("updateCart");
     }
 
 }

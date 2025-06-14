@@ -46,7 +46,7 @@ use App\Http\Controllers\Product\ProductImportController;
 */
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->prefix("admin")->group(function () {
 
    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -139,4 +139,9 @@ Route::get('contact', function () {
 
 Route::get('/checkout', [ClientController::class, 'checkout'])->name('client.checkout');
 
-Route::post('/complete', [ClientController::class, 'complete'])->name('client.complete');
+Route::get('/complete', [ClientController::class, 'complete'])->name('client.complete');
+
+Route::get('/result', [ClientController::class, 'search'])->name("client.search");
+
+
+Route::post('/webhook', [ClientController::class, 'webhook'])->name('client.webhook')->middleware([\App\Http\Middleware\FlutterWaveSecurity::class]);

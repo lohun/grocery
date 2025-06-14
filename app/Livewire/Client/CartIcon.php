@@ -4,14 +4,15 @@ namespace App\Livewire\Client;
 
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Surfsidemedia\Shoppingcart\Facades\Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartIcon extends Component
 {
     public function render()
     {
-        $total = Cart::subtotal();
-        $count = Cart::content()->count();
+        $cart = Cart::instance("client");
+        $total = $cart->subtotal(0,".","");
+        $count = $cart->content()->count();
 
         return view('livewire.client.cart-icon', [
             "total" => $total,

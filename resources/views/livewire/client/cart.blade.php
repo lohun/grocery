@@ -17,11 +17,12 @@
             <div class="shopping-cart__product-content">
                 <div class="shopping-cart__product-content-item">
                     <div class="img-wrapper">
-                        <img src="{{ $item->options->img }}" alt="product" />
+                        <img src="{{ asset("storage/products/" .$item->options->img) }}" alt="product" />
                     </div>
                     <div class="text-content">
                         <h5 class="font-body--md-400">{{ $item->name }}</h5>
-                        <p class="font-body--md-400">{{ $item->price  }} x <span class="font-body--md-500">{{ $item->qty }}</span></p>
+                        <p class="font-body--md-400">{{ $item->price  }} x <span
+                                class="font-body--md-500">{{ $item->qty }}</span></p>
                     </div>
                 </div>
                 <button wire:click="removeItem({{ $item->id }})" class="delete-item">
@@ -46,10 +47,24 @@
         </div>
 
         <form action="#">
-            <button type="button" wire:click="clearCart" class="button button--lg w-100">Clear Cart</button>
+            <button type="submit" wire:click="clearCart" class="button button--lg w-100">Clear Cart</button>
             <a href="{{ route('client.checkout') }}" class="button button--lg w-100">
                 Checkout
             </a>
         </form>
     </div>
 </div>
+
+
+
+@script
+<script>
+    window.addEventListener("clearOverlay", function (e) {
+        let closeBtn = document.querySelector('.shopping-cart .close');
+        const body = document.querySelector('body');
+        body.classList.remove('overlay');
+        shoppingCart.classList.remove('active');
+    })
+</script>
+
+@endscript

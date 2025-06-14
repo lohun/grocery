@@ -22,11 +22,10 @@
                 <div class="cards-md">
                     <div class="cards-md__img-wrapper">
                         <a href="#">
-                            <img src="{{ asset("products/".$product->product_image) }}" alt="products" />
+                            <img src="{{ asset("storage/products/".$product->product_image) }}" alt="products" />
                         </a>
                         <div class="cards-md__favs-list">
-                            <span class="action-btn" wire:click="$emit('showProduct', {{ $product->id }})"
-                                data-bs-toggle="modal" data-bs-target="#productView">
+                            <span class="action-btn" wire:click="$dispatch('openModal', {component: 'client.modal', arguments: { id: {{ $product->id }} }})">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -42,10 +41,10 @@
                         </div>
                     </div>
                     <div class="cards-md__info d-flex justify-content-between align-items-center">
-                        <a href="product-details.html" class="cards-md__info-left">
+                        <a href="#" class="cards-md__info-left">
                             <h6 class="font-body--md-400">{{$product->name}}</h6>
                             <div class="cards-md__info-price">
-                                <span class="font-body--lg-500">₦{{$product->selling_price}}</span>
+                                <span class="font-body--lg-500">₦{{$product->selling_price/100}}</span>
 
                             </div>
                         </a>
@@ -73,7 +72,7 @@
                         <div class="cards-md w-100">
                             <div class="cards-md__img-wrapper">
                                 <a href="#">
-                                    <img src="{{ asset("products/" . $product->product_image) }}" alt="products" />
+                                    <img src="{{ asset("storage/products/" . $product->product_image) }}" alt="products" />
                                 </a>
                                 <div class="cards-md__favs-list">
                                     <span class="action-btn" wire:click="$emit('showProduct', {{  $product->id }})"
@@ -93,15 +92,15 @@
                                 </div>
                             </div>
                             <div class="cards-md__info d-flex justify-content-between align-items-center">
-                                <a href="product-details.html" class="cards-md__info-left">
+                                <a href="#" class="cards-md__info-left">
                                     <h6 class="font-body--md-400">{{ $product->name }}</h6>
                                     <div class="cards-md__info-price">
-                                        <span class="font-body--lg-500">₦{{$product->selling_price}}</span>
+                                        <span class="font-body--lg-500">₦{{$product->selling_price/100}}</span>
 
                                     </div>
                                 </a>
                                 <div class="cards-md__info-right">
-                                    <span class="action-btn" wire:click="addToPopularCart($product->id)">
+                                    <span class="action-btn animate__heartBeat" wire:click="addToPopularCart($product->id)">
                                         <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path

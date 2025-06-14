@@ -86,7 +86,6 @@
 
     @include('layouts.body.client_footer')
 
-    <livewire:client.modal />
 
 @endsection
 

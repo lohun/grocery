@@ -12,10 +12,10 @@ class Cart extends Component
     public function render()
     {
 
-        $cart_items = \Surfsidemedia\Shoppingcart\Facades\Cart::content();
-        $total = \Surfsidemedia\Shoppingcart\Facades\Cart::subtotal();
+        $cart = \Gloudemans\Shoppingcart\Facades\Cart::instance("client");
+        $cart_items = $cart->content();
+        $total = $cart->subtotal(2, ".", "");
         $numOfItems = $cart_items->count();
-
 
         return view('livewire.client.cart', [
             'total' => $total,
@@ -35,18 +35,19 @@ class Cart extends Component
         }
 
 
-        \Surfsidemedia\Shoppingcart\Facades\Cart::remove($productId);
+        $cart = \Gloudemans\Shoppingcart\Facades\Cart::instance("client");
+        $cart->remove($productId);
     }
 
     public function clearCart()
     {
-
-        \Surfsidemedia\Shoppingcart\Facades\Cart::destroy();
+        $cart = \Gloudemans\Shoppingcart\Facades\Cart::instance("client");
+        $cart->destroy();
         $this->dispatch("updateCart");
+        $this->dispatch("clearOverlay");
     }
 
-    #[On('updateCart')]
+    #[On("updateCart")]
     public function updateCart()
-    {
-    }
+    {}
 }

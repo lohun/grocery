@@ -148,11 +148,11 @@
     $wire.on('completePayment', function (e) {
         function makePayment(amount, tx_ref, consumer_id, email, phone, name) {
             FlutterwaveCheckout({
-                public_key: 'FLWPUBK_TEST-SANDBOXDEMOKEY-X',
+                public_key: "{{ env('FLUTTERWAVEPUBLICKEY') }}",
                 tx_ref: tx_ref,
                 amount: amount,
                 currency: 'NGN',
-                payment_options: 'card, mobilemoneynigeria, ussd',
+                payment_options: 'card, mobilemoneynigeria, ussd, applepay',
                 redirect_url: '{{route('client.complete')}}',
                 meta: {
                     consumer_id: consumer_id,
@@ -164,10 +164,9 @@
                 },
                 customizations: {
                     title: 'Grocery Now',
-                    description: 'Payment for goods',
-                    logo: '{{asset('images/ android - chrome - 192x192.png')}}',
-                },
-            });
+                    logo: '{{asset('images/android - chrome - 192x192.png')}}',
+                }
+            })
         }
         
         const [amount, tx_ref, consumer_id, email, phone, name] = e[0];

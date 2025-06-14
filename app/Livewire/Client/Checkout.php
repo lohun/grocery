@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Surfsidemedia\Shoppingcart\Facades\Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Checkout extends Component
 {
@@ -39,8 +39,8 @@ class Checkout extends Component
 
     public function render()
     {
-        $cart_items = Cart::content();
-        $total = doubleval(Cart::subtotal(2, ".", "" ));
+        $cart_items = Cart::instance("client");
+        $total = doubleval(Cart::subtotal(2, ".", ""));
         $count = $cart_items->count();
         return view('livewire.client.checkout', [
             "cart_items" => $cart_items,
@@ -78,7 +78,7 @@ class Checkout extends Component
             'length' => 10,
             'prefix' => 'INV-',
         ]);
-        $total = doubleval(Cart::subtotal(2, ".", "" )) + 800;
+        $total = doubleval(Cart::instance("client")->subtotal(2, ".", ""));
         $misc = [
             'pay' => 0,
             'payment_type' => 'online',
@@ -86,9 +86,9 @@ class Checkout extends Component
             'order_date' => Carbon::now()->format('Y-m-d'),
             'order_status' => 0,
             'total_products' => Cart::count(),
-            'sub_total' => doubleval(Cart::subtotal()),
+            'sub_total' => $total,
             'vat' => "0",
-            'total' => $total,
+            'total' => $total + 800,
             'invoice_no' => $invoice_no,
             'due' => $total,
         ];
@@ -109,10 +109,6 @@ class Checkout extends Component
             OrderDetails::insert($oDetails);
         }
 
-        $this->dispatch("completePayment", [$total, $invoice_no, $customer['id'], $customer['email'], $customer['phone'], $customer['name']]);
-
-
-        // Delete Cart Sopping History
-        Cart::destroy();
+        $this->dispatch("completePayment", [$total + 800, $invoice_no, $customer['id'], $customer['email'], $customer['phone'], $customer['name']]);
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Order;
-use App\Models\Product;
 use DB;
 use Http;
 use Illuminate\Http\Request;
@@ -16,23 +14,15 @@ class ClientController extends Controller
 
     public function products(Request $request, $category)
     {
-        $sql = "SELECT c.*, p.selling_price FROM products p JOIN categories c ON p.category_id = c.id WHERE c.slug = ?";
-        $categories = DB::select($sql, [$category]);
-
-        $category_id = 1;
-        if (count($categories) > 0) {
-            $category_id = $categories[0]->id;
-        }
-
         return view('client.product', [
-            "categories_id" => $category_id,
+            "categories_id" => trim($category),
         ]);
     }
 
     public function checkout(Request $request)
     {
         $cart_items = Cart::content();
-        $total =doubleval(Cart::total());
+        $total = doubleval(Cart::total());
         $count = $cart_items->count();
         $shipping = 800;
 
@@ -46,33 +36,54 @@ class ClientController extends Controller
         ]);
     }
 
-    public function complete(Request $request, string $tx_ref, int $tx_id, string $status)
+    public function complete(Request $request)
     {
+        $tx_id = $request->get('transaction_id');
+        $tx_ref = $request->get('tx_ref');
         $tx_id = trim(htmlentities($tx_id));
-        $post = Http::post(
-            "https://api.flutterwave.com/v3/transactions/123456/verify",
+        $post = Http::withHeaders(
             [
                 "content-type" => "application/json",
-                "Authorization" => "Bearer " . env("FLUTTERWAVE SECRET")
+                "Accept" => "application/json",
+                "Authorization" => "Bearer " . env('FLUTTERWAVEPRIVATEKEY')
             ]
-        );
+        )->get("https://api.flutterwave.com/v3/transactions/$tx_id/verify");
         $post->throw();
-        $req = $post->json();
+        $req = json_decode($post->body(), true);
 
-        if ($req['status'] == "success") {
+        if ($req['data']['status'] == "success") {
             $tx_ref = $req['data']['tx_ref'];
             $amount = $req['data']['amount'];
 
-            $order = Order::update(['status' => "1"], ["invoice_no" => $tx_ref, "total" => $amount]);
+            $order = Order::update(['order_status' => "1", "pay" => $amount], ["invoice_no" => $tx_ref]);
             if (!$order) {
                 return redirect()
-                    ->route('client.product')
+                    ->back()
                     ->with("error", 'Order failed!');
             }
+
+            Cart::instance('client')->destroy();
         }
 
         return redirect()
-            ->route('client.product')
-            ->with('success', 'Order recorde!');
+            ->back()
+            ->with('success', 'Order recorded!');
+    }
+
+    public function webhook(Request $request)
+    {
+        // Handle the webhook logic here
+        // This is where you would process the incoming webhook data from Flutterwave
+        // For example, you might want to log the request or update order statuses based on the webhook data
+
+        // Example: Log the request data
+        \Log::info('Webhook received:', $request->all());
+
+        return response()->json(['status' => 'success'], 200);
+    }
+
+    public function search(Request $request)
+    {
+        return view('client.search');
     }
 }

@@ -15,12 +15,13 @@
                         </svg>
                     </button>
                     <a href="{{route('client.home')}}">
-                        <img src="{{asset('images/android-chrome-192x192.png')}}" style="width: 95px; height: 95px;" alt="brand-logo" />
+                        <img src="{{asset('images/android-chrome-192x192.png')}}" style="width: 95px; height: 95px;"
+                            alt="brand-logo" />
                     </a>
                 </div>
-                <form action="#">
+                <form method="get" action="{{ route('client.search') }}">
                     <div class="header__input-form">
-                        <input type="text" placeholder="Search" />
+                        <input type="text" placeholder="Search" name="s" autocomplete="off" />
                         <span class="search-icon">
                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +38,7 @@
                         </button>
                     </div>
                 </form>
-                
+
                 <livewire:client.cart-icon />
 
 
@@ -49,8 +50,8 @@
             <div class="header__bottom-content">
                 <ul class="header__navigation-menu">
                     <!-- Homepages -->
-                     <li class="header__navigation-menu-link">
-                        <a href="{{route('client.home')}}">Home</a>
+                    <li class="header__navigation-menu-link">
+                        <a href="{{ route('client.home') }}">Home</a>
                     </li>
                     <li class="header__navigation-menu-link">
                         <a href="#">
@@ -64,16 +65,56 @@
                             </span>
                         </a>
                         <ul class="header__navigation-drop-menu">
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['baby-foods']) }}">Baby Food</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['bakery']) }}">Baked Food and Pastries</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['beverages']) }}">Beverages</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['canned-packaged-foods']) }}">Canned and Packaged
+                                    Foods</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['condiments-spices']) }}">Condiments and Spices</a>
+                            </div>
                             <li class="header__navigation-drop-menu-link">
-                                <a href="{{route('client.product', ['diary'])}}">Diary</a>
+                                <a href="{{ route('client.product', ['dairy']) }}">Diary</a>
                             </li>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['frozen-foods']) }}">Frozen Food</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['health-wellness']) }}">Health and Wellness</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['household-supplies']) }}">Household Supplies</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['personal-care']) }}">Personal Care</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['pet-supplies']) }}">Pet Supplies</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['produce']) }}">Produce</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['snacks-sweets']) }}">Snacks and Sweets</a>
+                            </div>
+                            <div class="header__navigation-drop-menu-link">
+                                <a href="{{ route('client.product', ['whole-foods']) }}">Whole Food</a>
+                            </div>
                         </ul>
                     </li>
                     <li class="header__navigation-menu-link">
                         <a href="{{ route('client.about') }}">About us </a>
                     </li>
                     <li class="header__navigation-menu-link">
-                        <a href="{{ route('client.contact') }}">Contact us</a>
+                        <a href="{{ route('client.checkout') }}">Checkout </a>
                     </li>
                 </ul>
 
@@ -91,7 +132,7 @@
                                 stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
-                        (219) 555-0114
+                        +2349070599628
                     </span>
                 </a>
             </div>
@@ -108,9 +149,9 @@
         </button>
         <div class="header__mobile-sidebar">
             <div class="header__mobile-top">
-                <form action="#">
+                <form method="get" action="{{ route('client.search') }}">
                     <div class="header__mobile-input">
-                        <input type="text" placeholder="Search" />
+                        <input type="text" placeholder="Search" name="s" />
                         <button class="search-btn">
                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -125,38 +166,12 @@
                     </div>
                 </form>
                 <ul class="header__mobile-menu">
-                    <li class="header__mobile-menu-item active">
-                        <a href="#" class="header__mobile-menu-item-link">
-                            Home
-                            <span class="drop-icon">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3.33332 5.66667L7.99999 10.3333L12.6667 5.66667" stroke="currentColor"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                        </a>
-                        <ul class="header__mobile-dropdown-menu">
-                            <li class="header__mobile-dropdown-menu-link active">
-                                <a href="index.html">Home 01</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="home-02.html">Home 02</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="home-03.html">Home 03</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="home-04.html">Home 04</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="home-05.html">Home 05</a>
-                            </li>
-                        </ul>
+                    <li class="header__mobile-menu-item">
+                        <a class="header__mobile-menu-item-link" href="{{ route('client.home') }}">Home</a>
                     </li>
                     <li class="header__mobile-menu-item">
                         <a href="#" class="header__mobile-menu-item-link">
-                            Shop
+                            Categories
                             <span class="drop-icon">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -167,105 +182,63 @@
                         </a>
                         <ul class="header__mobile-dropdown-menu">
                             <li class="header__mobile-dropdown-menu-link">
-                                <a href="shop-01.html">Shop 01</a>
+                                <a href="{{ route('client.product', ['baby-foods']) }}">Baby Food</a>
                             </li>
                             <li class="header__mobile-dropdown-menu-link">
-                                <a href="shop-02.html">Shop 02</a>
+                                <a href="{{ route('client.product', ['bakery']) }}">Baked Food and Pastries</a>
                             </li>
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['beverages']) }}">Beverages</a>
+                            </li>
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['canned-packaged-foods']) }}">Canned and Packaged
+                                    Foods</a>
+                            </li>
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['condiments-spices']) }}">Condiments and Spices</a>
+                            </li>
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['dairy']) }}">Diary</a>
+                            </li>
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['frozen-foods']) }}">Frozen Food</a>
+                            </li>
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['health-wellness']) }}">Health and Wellness</a>
+                            </li>
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['household-supplies']) }}">Household Supplies</a>
+                            </li>
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['personal-care']) }}">Personal Care</a>
+                            </li>
+
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['pet-supplies']) }}">Pet Supplies</a>
+                            </li>
+
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['produce']) }}">Produce</a>
+                            </li>
+
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['snacks-sweets']) }}">Snacks and Sweets</a>
+                            </li>
+
+                            <li class="header__mobile-dropdown-menu-link">
+                                <a href="{{ route('client.product', ['whole-foods']) }}">Whole Food</a>
+                            </li>
+
                         </ul>
                     </li>
                     <li class="header__mobile-menu-item">
-                        <a href="#" class="header__mobile-menu-item-link">
-                            Pages
-                            <span class="drop-icon">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3.33332 5.66667L7.99999 10.3333L12.6667 5.66667" stroke="currentColor"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                        </a>
-                        <ul class="header__mobile-dropdown-menu">
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="product-details.html">Product Details</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="wishlist.html">Wishlist</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="shopping-cart.html">Shopping Cart</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="checkout.html">Checkout</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="sign-in.html">Sign in</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="create-account.html">Create Account</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="user-dashboard.html">User Dashboard</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="order-history.html">order history</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="order-details.html">Order Details</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="account-setting.html">Account Settings</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="faq.html">faq</a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="404.html">404</a>
-                            </li>
-                        </ul>
+                        <a class="header__mobile-menu-item-link" href="{{ route('client.about') }}">About us </a>
                     </li>
+
                     <li class="header__mobile-menu-item">
-                        <a href="#" class="header__mobile-menu-item-link">
-                            Blog
-                            <span class="drop-icon">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3.33332 5.66667L7.99999 10.3333L12.6667 5.66667" stroke="currentColor"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                        </a>
-                        <ul class="header__mobile-dropdown-menu">
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="single-blog.html">Single Blog </a>
-                            </li>
-                            <li class="header__mobile-dropdown-menu-link">
-                                <a href="blog-list.html">Blog list</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="header__mobile-menu-item">
-                        <a href="about.html" class="header__mobile-menu-item-link">About</a>
-                    </li>
-                    <li class="header__mobile-menu-item">
-                        <a href="contact.html" class="header__mobile-menu-item-link">Contacts</a>
+                        <a class="header__mobile-menu-item-link" href="{{ route('client.checkout') }}">Checkout </a>
                     </li>
                 </ul>
-            </div>
-            <div class="header__mobile-bottom">
-                <div class="header__mobile-user">
-                    <div class="header__mobile-user--img">
-                        <img src="src/images/user/img-03.png" alt="user" />
-                    </div>
-                    <div class="header__mobile-user--info">
-                        <h2 class="font-body--lg-500">Dianne Russell</h2>
-                        <p class="font-body--md-400">dianne.russell@gmail.com</p>
-                    </div>
-                </div>
-                <div class="header__mobile-action d-none">
-                    <a href="#" class="button button--md">Sign in</a>
-                    <a href="#" class="button button--md button--disable">Sign up</a>
-                </div>
             </div>
         </div>
     </div>

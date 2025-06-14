@@ -3,47 +3,30 @@
 namespace App\Livewire\Client;
 
 use App\Models\Category;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
+use App\Models\Product;
+use DB;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
-class Archive extends Component
+class Search extends Component
 {
-    use WithPagination;
+     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
 
 
-    #[URL('Required')]
-    public $category;
+    #[Url]
+    public $s = '';
 
     public $sortBy;
 
-
-
-    // #[Validate('Required', message: "All fields must be filled")]
-
-    public function mount($category)
-    {
-        $this->category = $category;
-        $this->sortBy = 1;
-    }
     public function render()
     {
-        if ($this->sortBy == 1) {
-            $products = DB::table('categories')->join('products', 'categories.id', 'products.category_id')->where("categories.slug", $this->category)->paginate(12);
-        } else if ($this->sortBy == 2) {
-            $products = DB::table('categories')->join('products', 'categories.id', 'products.category_id')->where("categories.slug", $this->category)->orderBy("products", "desc")->paginate(12);
-        } else {
-            $products = DB::table('categories')->join('products', 'categories.id', 'products.category_id')->where("categories.slug", $this->category)->orderBy("products", "asc")->paginate(12);
-        }
-
-        return view('livewire.client.archive', [
-            "products" => $products,
-            "slug" => $this->category,
+        return view('livewire.client.search', [
+            "products" => Product::search($this->s)->paginate(),
             "categories" => Category::all()
         ]);
     }

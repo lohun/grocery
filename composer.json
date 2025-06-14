@@ -24,7 +24,8 @@
         "picqer/php-barcode-generator": "^3.2",
         "power-components/livewire-powergrid": "^6.3",
         "rappasoft/laravel-livewire-tables": "^3.7",
-        "surfsidemedia/shoppingcart": "^2.0"
+        "surfsidemedia/shoppingcart": "^2.0",
+        "wire-elements/modal": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",
